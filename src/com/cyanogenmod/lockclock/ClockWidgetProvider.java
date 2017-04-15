@@ -62,12 +62,6 @@ public class ClockWidgetProvider extends AppWidgetProvider {
                 context.stopService(i);
             }
 
-        // Boot completed, schedule next weather update
-        } else if (Intent.ACTION_BOOT_COMPLETED.equals(action)) {
-            // On first boot lastUpdate will be 0 thus no need to force an update
-            // Subsequent boots will use cached data
-            WeatherUpdateService.scheduleNextUpdate(context, false);
-
         // A widget has been deleted, prevent our handling and ask the super class handle it
         } else if (AppWidgetManager.ACTION_APPWIDGET_DELETED.equals(action)
                 || AppWidgetManager.ACTION_APPWIDGET_DISABLED.equals(action)) {

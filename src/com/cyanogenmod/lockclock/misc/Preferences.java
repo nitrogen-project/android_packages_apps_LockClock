@@ -222,6 +222,12 @@ public class Preferences {
         return getPrefs(context).getLong(Constants.WEATHER_LAST_UPDATE, 0);
     }
 
+    public static void clearLastWeatherUpdateTimestamp(Context context) {
+        SharedPreferences.Editor editor = getPrefs(context).edit();
+
+        editor.putLong(Constants.WEATHER_LAST_UPDATE, 0).commit();
+    }
+
     public static WeatherInfo getCachedWeatherInfo(Context context) {
         return WeatherInfo.fromSerializedString(context,
                 getPrefs(context).getString(Constants.WEATHER_DATA, null));

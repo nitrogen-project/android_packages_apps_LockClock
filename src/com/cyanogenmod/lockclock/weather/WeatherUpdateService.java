@@ -392,7 +392,7 @@ public class WeatherUpdateService extends Service {
         }
     }
 
-    private static void scheduleUpdate(Context context, long timeFromNow, boolean force) {
+    public static void scheduleUpdate(Context context, long timeFromNow, boolean force) {
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         long due = System.currentTimeMillis() + timeFromNow;
 
@@ -403,11 +403,7 @@ public class WeatherUpdateService extends Service {
     public static void scheduleNextUpdate(Context context, boolean force) {
         long lastUpdate = Preferences.lastWeatherUpdateTimestamp(context);
         if (lastUpdate == 0 || force) {
-            if (WidgetUtils.isNetworkAvailable(context)) {
-        	scheduleUpdate(context, 0, true);
-            } else {
-        	scheduleUpdate(context, 30000, true); // add 30 sec interval to wait network
-            }
+            scheduleUpdate(context, 0, true);
         } else {
             long interval = Preferences.weatherRefreshIntervalInMs(context);
             scheduleUpdate(context, lastUpdate + interval - System.currentTimeMillis(), false);
